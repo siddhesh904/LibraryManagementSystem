@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}
+Feach Data for user
+{% endblock %}
+{% block body %}
+
+
+
+<div class="container my-3">
+
+  <form class="d-flex my-4" role="search">
+    <input class="form-control me-2" type="search" name ='search' placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+    <!-- <div class="row">
+        {% for book in book_data.message  %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{book.bookID}}</h5>
+                    <h5 class="card-title">{{book.title|slice:":50"}}</h5>
+                    <p class="card-text">{{book.language_code}}</p>
+                    <a href="/bookDetails/{{book.bookID}}/" class = 'btn btn-outline-info'>View Book Details</a>
+                 
+
+                </div>
+            </div>
+        </div>
+        
+        {% endfor %}
+    </div> -->
+
+
+
+
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sr number</th>
+            <th scope="col">Book Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Authors</th>
+            <th scope="col">Publisher</th>
+            <th scope="col">View Data</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in queryset%}
+            
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{i.book_id}}</td>
+            <td>{{i.title|slice:":50"}}</td>
+            <td>{{i.authors}}</td>
+            <td>{{i.publisher}}</td>
+            <td><a href="bookDetails/{{i.book_id}}/" class = "btn btn-outline-primary"  >View </a></td>
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+
+
+
+
+
+      <div class="container">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if queryset.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ queryset.previous_page_number }}">previous</a>
+                </li>
+                {% endif %}
+    
+                <li class="page-item"><a class="page-link" href="#">
+                        Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}.
+                    </a></li>
+    
+                {% if queryset.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ queryset.next_page_number }}">next</a>
+                </li>
+    
+                <li class="page-item"><a class="page-link" href="?page={{ queryset.paginator.num_pages }}">last
+                        &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    
+</div>
+{% endblock %}
+
